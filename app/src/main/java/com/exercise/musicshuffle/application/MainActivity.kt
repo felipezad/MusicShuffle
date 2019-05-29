@@ -1,7 +1,8 @@
-package com.exercise.musicshuffle
+package com.exercise.musicshuffle.application
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.exercise.musicshuffle.R
 
 class MainActivity : AppCompatActivity() {
 
