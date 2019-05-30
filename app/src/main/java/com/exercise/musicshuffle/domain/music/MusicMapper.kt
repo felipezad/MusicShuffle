@@ -1,7 +1,6 @@
 package com.exercise.musicshuffle.domain.music
 
 import com.exercise.musicshuffle.data.model.MusicResponse
-import com.exercise.musicshuffle.domain.music.Music
 import com.exercise.musicshuffle.domain.Mapper
 
 class MusicMapper : Mapper<MusicResponse, Music> {
@@ -17,5 +16,4 @@ class MusicMapper : Mapper<MusicResponse, Music> {
             )
         }
     }
-
 }

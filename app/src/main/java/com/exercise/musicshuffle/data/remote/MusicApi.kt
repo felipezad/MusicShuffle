@@ -12,5 +12,5 @@ interface MusicApi : Api {
         get() = "https://us-central1-tw-exercicio-mobile.cloudfunctions.net/"
 
     @GET("lookup")
-    fun getMusic(@Query("id") artistId: String, @Query("limit") limit: Int = 5): Single<Response<BasicResponse<MusicResponse>>>
+    fun getMusic(@Query("id") artistId: String, @Query("limit") limit: Int = 5): Single<BasicResponse<MusicResponse>>
 }
