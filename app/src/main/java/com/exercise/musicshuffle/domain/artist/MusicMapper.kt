@@ -1,4 +1,4 @@
-package com.exercise.musicshuffle.domain.music
+package com.exercise.musicshuffle.domain.artist
 
 import com.exercise.musicshuffle.data.model.MusicResponse
 import com.exercise.musicshuffle.domain.Mapper

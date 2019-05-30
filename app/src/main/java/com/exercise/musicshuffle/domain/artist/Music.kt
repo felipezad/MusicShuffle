@@ -1,4 +1,4 @@
-package com.exercise.musicshuffle.domain.music
+package com.exercise.musicshuffle.domain.artist
 
 data class Music(
     val id: Long = 0,
