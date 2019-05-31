@@ -43,7 +43,6 @@ class MainViewModel(private val getArtistListUseCase: GetArtistListUseCase) : Vi
     class MainViewModelFactory(private val getArtistListUseCase: GetArtistListUseCase = GetArtistListUseCase()) :
         ViewModelProvider.Factory {
 
-
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return MainViewModel(getArtistListUseCase) as T
         }

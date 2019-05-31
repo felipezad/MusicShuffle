@@ -43,4 +43,15 @@ class GetArtistListUseCaseTest {
             assertEquals(responseFromUseCase, responseFromExecute)
         }, {})
     }
+
+    @Test
+    fun executeGetArtistListUseCaseTestError() {
+        val responseFromUseCase = GetArtistListUseCase.Result.Failure(Throwable()) as GetArtistListUseCase.Result
+        Mockito.`when`(musicRepositoryMock.getArtist(Mockito.anyString()))
+            .thenReturn(Single.error(Throwable()))
+        val responseFromExecute: Observable<GetArtistListUseCase.Result> = getArtistListUseCase.execute("any_string")
+        responseFromExecute.subscribe({
+            assertEquals(responseFromUseCase, responseFromExecute)
+        }, {})
+    }
 }
