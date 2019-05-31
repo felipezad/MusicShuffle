@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        model = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        model = ViewModelProviders.of(this, MainViewModel.MainViewModelFactory()).get(MainViewModel::class.java)
         model.getArtistList("909253")
         model.artistList.observe(this, Observer<List<Music>> { it ->
             Log.d("lista", it.get(1).toString())

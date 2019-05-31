@@ -3,9 +3,7 @@ package com.exercise.musicshuffle.domain.artist
 import com.exercise.musicshuffle.domain.UseCase
 import io.reactivex.Observable
 
-object GetArtistListUseCase : UseCase {
-
-    private val musicRepository: MusicRepository = MusicRepository()
+class GetArtistListUseCase(private val musicRepository: MusicRepository = MusicRepository()) : UseCase {
 
     sealed class Result {
         object Loading : Result()
