@@ -35,7 +35,7 @@ class GetArtistListUseCaseTest {
             trackName = "trackNameMock"
         )
         val responseFromRepository = listOf(musicMock)
-        val responseFromUseCase = GetArtistListUseCase.Result.Success(listOf(musicMock)) as GetArtistListUseCase.Result
+        val responseFromUseCase = GetArtistListUseCase.Result.Success(responseFromRepository) as GetArtistListUseCase.Result
         Mockito.`when`(musicRepositoryMock.getArtist(Mockito.anyString()))
             .thenReturn(Single.just(responseFromRepository))
         val responseFromExecute: Observable<GetArtistListUseCase.Result> = getArtistListUseCase.execute("any_string")
