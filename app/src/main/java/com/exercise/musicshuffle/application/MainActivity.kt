@@ -21,8 +21,8 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    override fun onDestroy() {
+    override fun onPause() {
         model.destroy()
-        super.onDestroy()
+        super.onPause()
     }
 }
