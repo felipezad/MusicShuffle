@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.exercise.musicshuffle.R
 import com.exercise.musicshuffle.domain.artist.Music
+import kotlinx.android.synthetic.main.music_list_item.view.*
 
 class MusicAdapter(private val musics: List<Music>) : RecyclerView.Adapter<MusicAdapter.MusicViewHolder>() {
 
@@ -16,15 +17,19 @@ class MusicAdapter(private val musics: List<Music>) : RecyclerView.Adapter<Music
     }
 
     override fun onBindViewHolder(holder: MusicViewHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        holder.bind(musics[position])
     }
 
     override fun getItemCount(): Int = musics.size
 
 
     class MusicViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        lateinit var textViewMusicName: TextView
-        lateinit var textViewMusicArtist: TextView
+        var textViewMusicName: TextView = view.textViewMusicName
+        var textViewMusicArtist: TextView = view.textViewMusicArtist
 
+        fun bind(music: Music) {
+            textViewMusicArtist.text = music.artistName
+            textViewMusicName.text = music.trackName
+        }
     }
 }
