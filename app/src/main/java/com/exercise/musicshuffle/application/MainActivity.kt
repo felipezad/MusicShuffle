@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.exercise.musicshuffle.R
 import com.exercise.musicshuffle.domain.artist.Music
 import kotlinx.android.synthetic.main.activity_main.*
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity() {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activityContext)
             model.artistList.value?.let {
-                adapter = MusicAdapter(it)
+                adapter = MusicAdapter(it, Glide.with(activityContext))
             }
         }
     }
