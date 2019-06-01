@@ -9,11 +9,11 @@
     <ImageView
             android:contentDescription="@string/music_artwork"
             android:id="@+id/imageViewMusicArtWork"
-            android:layout_height="wrap_content"
+            android:layout_height="75dp"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_width="wrap_content"
+            android:layout_width="75dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -22,26 +22,25 @@
     <TextView
             android:id="@+id/textViewMusicName"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/imageViewMusicArtWork"
             app:layout_constraintStart_toEndOf="@+id/imageViewMusicArtWork"
             app:layout_constraintTop_toTopOf="@+id/imageViewMusicArtWork"
-            app:layout_constraintVertical_bias="0.25"
+            app:layout_constraintVertical_bias="0.0"
             style="@style/MusicName"
-            tools:background="@android:color/holo_green_dark"
-            tools:text="textViewMusicName"/>
+            tools:background="@android:color/holo_green_dark" tools:text="textViewMusicName"/>
 
     <TextView
             android:id="@+id/textViewMusicArtist"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textViewMusicName"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/textViewMusicName"
-            app:layout_constraintTop_toBottomOf="@+id/textViewMusicName"
-            style="@style/MusicArtist"
-            tools:background="@android:color/holo_red_dark" tools:text="textViewMusicArtist"/>
+            app:layout_constraintStart_toStartOf="@+id/textViewMusicName" app:layout_constraintTop_toBottomOf="@+id/textViewMusicName" app:layout_constraintVertical_bias="0.0" style="@style/MusicArtist" tools:background="@android:color/holo_red_dark" tools:text="textViewMusicArtist"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

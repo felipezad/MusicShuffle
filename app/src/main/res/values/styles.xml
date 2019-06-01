@@ -17,7 +17,7 @@
 
     <style name="MusicArtist">
         <item name="android:textAlignment">textStart</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">#e1dde0</item>
     </style>
 
 </resources>
