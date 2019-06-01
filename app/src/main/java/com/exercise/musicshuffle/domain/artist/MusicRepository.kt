@@ -23,6 +23,6 @@ class MusicRepository(
 
     fun getArtist(artistId: String): Single<List<Music>> {
         return musicApi.getArtistMusics(artistId = artistId)
-            .map { musicMapper.to(it.results) }
+            .map { musicMapper.to(it.results.filter { it.trackName.isNotBlank() }) }
     }
 }
