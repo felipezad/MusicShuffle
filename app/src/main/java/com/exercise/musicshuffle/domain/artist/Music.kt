@@ -5,5 +5,6 @@ data class Music(
     val artistName: String = "",
     val artistId: Long = 0,
     val primaryGenre: String = "",
-    val trackName: String = ""
+    val trackName: String = "",
+    val artworkUrl: String = ""
 )
