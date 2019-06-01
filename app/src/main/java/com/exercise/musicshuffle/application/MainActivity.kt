@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.exercise.musicshuffle.R
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         model = ViewModelProviders.of(this, MainViewModel.MainViewModelFactory()).get(MainViewModel::class.java)
-        model.getArtistList("909253")
+        model.getArtistList("909253,1171421960,358714030,1419227,264111789")
         model.artistList.observe(this, Observer<List<Music>> { it ->
             Log.d("lista", it.get(1).toString())
             initLayout(this)
@@ -36,6 +37,12 @@ class MainActivity : AppCompatActivity() {
         recyclerViewMusic.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activityContext)
+            DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL).apply {
+                activityContext.getDrawable(R.drawable.music_list_divider)?.let {
+                    setDrawable(it)
+                    addItemDecoration(this)
+                }
+            }
             model.artistList.value?.let {
                 adapter = MusicAdapter(it, Glide.with(activityContext))
             }

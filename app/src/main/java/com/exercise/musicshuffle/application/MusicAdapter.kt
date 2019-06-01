@@ -26,7 +26,6 @@ class MusicAdapter(private val musics: List<Music>, private val requestManager: 
 
     override fun getItemCount(): Int = musics.size
 
-
     class MusicViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var textViewMusicName: TextView = view.textViewMusicName
         var textViewMusicArtist: TextView = view.textViewMusicArtist
