@@ -13,7 +13,7 @@ class MainViewModel(
     private val getArtistListUseCase: GetArtistListUseCase,
     private val subscribeOn: Scheduler = Schedulers.io(),
     private val observeOn: Scheduler = AndroidSchedulers.mainThread(),
-    val artistList: MutableLiveData<List<Music>> = MutableLiveData<List<Music>>()
+    val artistList: MutableLiveData<List<Music>> = MutableLiveData()
 ) : ViewModel() {
 
 
