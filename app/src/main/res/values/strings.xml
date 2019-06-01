@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">musicshuffle</string>
+    <string name="music_artwork">Music ArtWork</string>
 </resources>
