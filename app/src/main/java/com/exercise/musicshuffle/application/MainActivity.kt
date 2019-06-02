@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -54,6 +55,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateMusicAdapter(it: List<Music>) {
         recyclerViewMusic.adapter = MusicAdapter(it, Glide.with(this))
+        progressBarLoadingMusic.visibility = View.GONE
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
