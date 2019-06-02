@@ -81,11 +81,12 @@ class MainViewModel(
 
     private fun MutableList<Music>.shuffleMusicList(): List<Music> {
         val shuffleList: MutableList<Music> = mutableListOf()
-        var index = Random(System.currentTimeMillis()).nextInt(this.size)
+        val random = Random(System.currentTimeMillis())
+        var index = random.nextInt(this.size)
         var getRandomMusic: Music
         shuffleList.add(this.removeAt(index))
         while (this.size > 0) {
-            index = Random(System.currentTimeMillis()).nextInt(this.size)
+            index = random.nextInt(this.size)
             getRandomMusic = this[index]
             if (!shuffleList.last().artistName.equals(other = getRandomMusic.artistName, ignoreCase = true)) {
                 shuffleList.add(this.removeAt(index))
