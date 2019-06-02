@@ -88,7 +88,7 @@ class MainViewModel(
         while (this.size > 0) {
             index = random.nextInt(this.size)
             getRandomMusic = this[index]
-            if (!shuffleList.last().artistName.equals(other = getRandomMusic.artistName, ignoreCase = true)) {
+            if (!(shuffleList.last().artistName.equals(other = getRandomMusic.artistName, ignoreCase = true))) {
                 shuffleList.add(this.removeAt(index))
             }
         }
