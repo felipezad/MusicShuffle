@@ -82,15 +82,8 @@ class MainViewModel(
             if (shuffleList.size == 0) {
                 shuffleList.add(this.removeAt(index))
             } else {
-                val lastMusicArtist = shuffleList.lastOrNull()?.artistName
-                val randomMusicArtist = getRandomMusic.artistName
-                lastMusicArtist?.let {
-                    if (it.equals(other = randomMusicArtist, ignoreCase = true)) {
-                        false
-                    } else {
-                        shuffleList.add(this.removeAt(index))
-                        true
-                    }
+                if (!shuffleList.last().artistName.equals(other = getRandomMusic.artistName, ignoreCase = true)) {
+                    shuffleList.add(this.removeAt(index))
                 }
             }
         }
