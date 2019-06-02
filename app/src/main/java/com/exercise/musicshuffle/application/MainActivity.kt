@@ -20,13 +20,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+    }
+
+    override fun onResume() {
         initLayout(this)
         setUpViewModel()
+        super.onResume()
     }
 
     private fun setUpViewModel() {
         model = ViewModelProviders.of(this, MainViewModel.MainViewModelFactory()).get(MainViewModel::class.java)
-        model.getArtistList("909253,1171421960,358714030,1419227,264111789")
+        val artistList = model.artistList.value
+        if (artistList == null) {
+            model.getArtistList("909253,1171421960,358714030,1419227,264111789")
+        }
         model.artistList.observe(this, Observer<List<Music>> { it: List<Music> ->
             updateMusicAdapter(it)
         })
