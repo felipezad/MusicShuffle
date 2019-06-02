@@ -15,7 +15,9 @@ class MainViewModel(
     private val subscribeOn: Scheduler = Schedulers.io(),
     private val observeOn: Scheduler = AndroidSchedulers.mainThread(),
     private var isShuffleReady: Boolean = false,
-    val artistList: MutableLiveData<List<Music>> = MutableLiveData()
+    val artistList: MutableLiveData<List<Music>> = MutableLiveData(),
+    val hasFailed: MutableLiveData<Boolean> = MutableLiveData(),
+    val isLoading: MutableLiveData<Boolean> = MutableLiveData()
 ) : ViewModel() {
 
 
@@ -28,7 +30,10 @@ class MainViewModel(
                 isShuffleReady = true
             }
             is GetArtistListUseCase.Result.Failure -> {
-                Log.e("Error", result.failure.toString())
+                hasFailed.postValue(true)
+            }
+            is GetArtistListUseCase.Result.Loading -> {
+                isLoading.postValue(true)
             }
         }
     }

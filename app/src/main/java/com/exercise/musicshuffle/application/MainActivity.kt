@@ -38,6 +38,12 @@ class MainActivity : AppCompatActivity() {
         model.artistList.observe(this, Observer<List<Music>> { it: List<Music> ->
             updateMusicAdapter(it)
         })
+        model.isLoading.observe(this, Observer {
+            isLoading(it)
+        })
+        model.hasFailed.observe(this, Observer {
+            hasConnectionFailed(it)
+        })
     }
 
     private fun initLayout(activityContext: Context) {
@@ -55,7 +61,25 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateMusicAdapter(it: List<Music>) {
         recyclerViewMusic.adapter = MusicAdapter(it, Glide.with(this))
+        recyclerViewMusic.visibility = View.VISIBLE
         progressBarLoadingMusic.visibility = View.GONE
+        imageViewErrorLoadMusic.visibility = View.GONE
+    }
+
+    private fun isLoading(isLoading: Boolean) {
+        if (isLoading) {
+            progressBarLoadingMusic.visibility = View.VISIBLE
+            recyclerViewMusic.visibility = View.GONE
+            imageViewErrorLoadMusic.visibility = View.GONE
+        }
+    }
+
+    private fun hasConnectionFailed(hasFailed: Boolean) {
+        if (hasFailed) {
+            progressBarLoadingMusic.visibility = View.GONE
+            recyclerViewMusic.visibility = View.GONE
+            imageViewErrorLoadMusic.visibility = View.VISIBLE
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

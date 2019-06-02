@@ -31,7 +31,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.50"
+            tools:visibility="invisible"/>
 
-    />
+    <ImageView
+            android:contentDescription="@string/failed_to_retrieve_musics"
+            android:id="@+id/imageViewErrorLoadMusic"
+            android:layout_height="100dp"
+            android:layout_width="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.50"
+            app:srcCompat="@android:drawable/stat_notify_error"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
