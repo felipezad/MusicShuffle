@@ -67,7 +67,7 @@ class MainViewModel(
             disposables.add(
                 getArtistListShuffledUseCase
                     .execute(artistList.value!!.toMutableList())
-                    .subscribeOn(subscribeOn)
+                    .subscribeOn(Schedulers.newThread())
                     .observeOn(observeOn)
                     .subscribe(this::handleGetShuffledArtistListSuccess)
             )
