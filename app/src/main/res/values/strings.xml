@@ -2,4 +2,7 @@
     <string name="app_name">musicshuffle</string>
     <string name="music_artwork">Music ArtWork</string>
     <string name="shuffle_songs">ShuffleSongs</string>
+    <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="music_shuffle_logo">Music shuffle logo</string>
+    <string name="music_shuffle">music shuffle</string>
 </resources>
