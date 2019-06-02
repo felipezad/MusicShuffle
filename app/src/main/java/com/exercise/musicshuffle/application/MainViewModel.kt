@@ -1,17 +1,19 @@
 package com.exercise.musicshuffle.application
 
-import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.exercise.musicshuffle.domain.artist.GetArtistListShuffledUseCase
 import com.exercise.musicshuffle.domain.artist.GetArtistListUseCase
 import com.exercise.musicshuffle.domain.artist.Music
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlin.random.Random
 
 class MainViewModel(
     private val getArtistListUseCase: GetArtistListUseCase,
+    private val getArtistListShuffledUseCase: GetArtistListShuffledUseCase,
     private val subscribeOn: Scheduler = Schedulers.io(),
     private val observeOn: Scheduler = AndroidSchedulers.mainThread(),
     private var isShuffleReady: Boolean = false,
@@ -39,6 +41,16 @@ class MainViewModel(
         }
     }
 
+    private fun handleGetShuffledArtistListSuccess(result: GetArtistListShuffledUseCase.Result) {
+        when (result) {
+            is GetArtistListShuffledUseCase.Result.Success -> {
+                artistList.postValue(result.musicList)
+                isLoading.postValue(false)
+                isShuffleReady = true
+            }
+        }
+    }
+
     fun getArtistList(artistId: String) {
         disposables.add(
             getArtistListUseCase
@@ -52,8 +64,13 @@ class MainViewModel(
     fun shuffleArtistList() {
         if (isShuffleReady) {
             isShuffleReady = false
-            val shuffledList = artistList.value?.toMutableList()?.shuffleMusicList()
-            artistList.value = shuffledList
+            disposables.add(
+                getArtistListShuffledUseCase
+                    .execute(artistList.value!!.toMutableList())
+                    .subscribeOn(subscribeOn)
+                    .observeOn(observeOn)
+                    .subscribe(this::handleGetShuffledArtistListSuccess)
+            )
             isShuffleReady = true
         }
     }
@@ -65,6 +82,7 @@ class MainViewModel(
 
     class MainViewModelFactory(
         private val getArtistListUseCase: GetArtistListUseCase = GetArtistListUseCase(),
+        private val getArtistListShuffledUseCase: GetArtistListShuffledUseCase = GetArtistListShuffledUseCase(),
         private val subscribeOn: Scheduler = Schedulers.io(),
         private val observeOn: Scheduler = AndroidSchedulers.mainThread()
     ) :
@@ -73,27 +91,12 @@ class MainViewModel(
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return MainViewModel(
                 getArtistListUseCase = getArtistListUseCase,
+                getArtistListShuffledUseCase = getArtistListShuffledUseCase,
                 subscribeOn = subscribeOn,
                 observeOn = observeOn
             ) as T
         }
 
-    }
-
-    private fun MutableList<Music>.shuffleMusicList(): List<Music> {
-        val shuffleList: MutableList<Music> = mutableListOf()
-        val random = Random(System.currentTimeMillis())
-        var index = random.nextInt(this.size)
-        var getRandomMusic: Music
-        shuffleList.add(this.removeAt(index))
-        while (this.size > 0) {
-            index = random.nextInt(this.size)
-            getRandomMusic = this[index]
-            if (!(shuffleList.last().artistName.equals(other = getRandomMusic.artistName, ignoreCase = true))) {
-                shuffleList.add(this.removeAt(index))
-            }
-        }
-        return shuffleList
     }
 
 }
