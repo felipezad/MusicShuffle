@@ -14,8 +14,8 @@ class MainViewModel(
     private val getArtistListUseCase: GetArtistListUseCase,
     private val subscribeOn: Scheduler = Schedulers.io(),
     private val observeOn: Scheduler = AndroidSchedulers.mainThread(),
-    val artistList: MutableLiveData<List<Music>> = MutableLiveData(),
-    val enableShuffleButton: MutableLiveData<Boolean> = MutableLiveData()
+    private var isShuffleReady: Boolean = false,
+    val artistList: MutableLiveData<List<Music>> = MutableLiveData()
 ) : ViewModel() {
 
 
@@ -25,6 +25,7 @@ class MainViewModel(
         when (result) {
             is GetArtistListUseCase.Result.Success -> {
                 artistList.postValue(result.musicList)
+                isShuffleReady = true
             }
             is GetArtistListUseCase.Result.Failure -> {
                 Log.e("Error", result.failure.toString())
@@ -43,10 +44,11 @@ class MainViewModel(
     }
 
     fun shuffleArtistList() {
-        artistList.value?.let {
-            val toMutableList = it.toMutableList()
-            artistList.postValue(toMutableList.shuffleMusicList())
-            enableShuffleButton.postValue(true)
+        if (isShuffleReady) {
+            isShuffleReady = false
+            val shuffledList = artistList.value?.toMutableList()?.shuffleMusicList()
+            artistList.value = shuffledList
+            isShuffleReady = true
         }
     }
 
@@ -80,8 +82,10 @@ class MainViewModel(
             if (shuffleList.size == 0) {
                 shuffleList.add(this.removeAt(index))
             } else {
-                shuffleList.lastOrNull {
-                    if (it.artistName.equals(other = getRandomMusic.artistName, ignoreCase = true)) {
+                val lastMusicArtist = shuffleList.lastOrNull()?.artistName
+                val randomMusicArtist = getRandomMusic.artistName
+                lastMusicArtist?.let {
+                    if (it.equals(other = randomMusicArtist, ignoreCase = true)) {
                         false
                     } else {
                         shuffleList.add(this.removeAt(index))
