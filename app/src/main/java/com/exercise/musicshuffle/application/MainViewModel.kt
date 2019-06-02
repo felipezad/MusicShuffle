@@ -20,17 +20,18 @@ class MainViewModel(
     val isLoading: MutableLiveData<Boolean> = MutableLiveData()
 ) : ViewModel() {
 
-
     private val disposables = CompositeDisposable()
 
     private fun handleGetArtistListSuccess(result: GetArtistListUseCase.Result) {
         when (result) {
             is GetArtistListUseCase.Result.Success -> {
                 artistList.postValue(result.musicList)
+                isLoading.postValue(false)
                 isShuffleReady = true
             }
             is GetArtistListUseCase.Result.Failure -> {
                 hasFailed.postValue(true)
+                isLoading.postValue(false)
             }
             is GetArtistListUseCase.Result.Loading -> {
                 isLoading.postValue(true)
