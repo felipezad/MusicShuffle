@@ -1,6 +1,7 @@
 package com.exercise.musicshuffle.application
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.exercise.musicshuffle.domain.artist.GetArtistListShuffledUseCase
 import com.exercise.musicshuffle.domain.artist.GetArtistListUseCase
 import com.exercise.musicshuffle.domain.artist.Music
 import io.reactivex.Observable
@@ -28,7 +29,12 @@ class MainViewModelTest {
         subscribeOn = Schedulers.trampoline()
         observeOn = Schedulers.trampoline()
         getArtistListUseCaseMock = Mockito.mock(GetArtistListUseCase::class.java)
-        mainViewModel = MainViewModel(getArtistListUseCaseMock, subscribeOn, observeOn)
+        mainViewModel = MainViewModel(
+            getArtistListUseCase = getArtistListUseCaseMock,
+            getArtistListShuffledUseCase = GetArtistListShuffledUseCase(),
+            subscribeOn = subscribeOn,
+            observeOn = observeOn
+        )
 
     }
 
