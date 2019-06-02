@@ -38,7 +38,7 @@ class MainViewModelTest {
             id = 1,
             artistId = 1,
             artistName = "artistNameMock",
-            primaryGenre = "genreMock",
+            primaryGenreName = "genreMock",
             trackName = "trackNameMock"
         )
         val responseFromUseCase = GetArtistListUseCase.Result.Success(listOf(musicMock)) as GetArtistListUseCase.Result

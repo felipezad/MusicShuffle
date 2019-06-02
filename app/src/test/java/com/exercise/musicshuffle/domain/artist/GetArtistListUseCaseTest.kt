@@ -31,7 +31,7 @@ class GetArtistListUseCaseTest {
             id = 1,
             artistId = 1,
             artistName = "artistNameMock",
-            primaryGenre = "genreMock",
+            primaryGenreName = "genreMock",
             trackName = "trackNameMock"
         )
         val responseFromRepository = listOf(musicMock)

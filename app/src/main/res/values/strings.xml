@@ -5,4 +5,5 @@
     <string name="title_activity_welcome">WelcomeActivity</string>
     <string name="music_shuffle_logo">Music shuffle logo</string>
     <string name="music_shuffle">music shuffle</string>
+    <string name="music_genre">(%1$s)</string>
 </resources>

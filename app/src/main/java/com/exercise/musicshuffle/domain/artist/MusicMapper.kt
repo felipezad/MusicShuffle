@@ -12,7 +12,7 @@ class MusicMapper : Mapper<MusicResponse, Music> {
                 artistId = this.artistId,
                 artistName = this.artistName,
                 trackName = this.trackName,
-                primaryGenre = this.primaryGenre,
+                primaryGenreName = this.primaryGenreName,
                 artworkUrl = this.artworkUrl
             )
         }
