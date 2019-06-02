@@ -22,18 +22,19 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        initLayout(this)
+        setUpViewModel()
+    }
 
+    private fun setUpViewModel() {
         model = ViewModelProviders.of(this, MainViewModel.MainViewModelFactory()).get(MainViewModel::class.java)
         model.getArtistList("909253,1171421960,358714030,1419227,264111789")
         model.artistList.observe(this, Observer<List<Music>> { it ->
-            Log.d("lista", it.get(1).toString())
-            initLayout(this)
+            updateMusicAdapter()
         })
-    }
-
-    override fun onPause() {
-        model.destroy()
-        super.onPause()
+        model.enableShuffleButton.observe(this, Observer {
+            invalidateOptionsMenu()
+        })
     }
 
     private fun initLayout(activityContext: Context) {
@@ -46,9 +47,12 @@ class MainActivity : AppCompatActivity() {
                     addItemDecoration(this)
                 }
             }
-            model.artistList.value?.let {
-                adapter = MusicAdapter(it, Glide.with(activityContext))
-            }
+        }
+    }
+
+    private fun updateMusicAdapter() {
+        model.artistList.value?.let {
+            recyclerViewMusic.adapter = MusicAdapter(it, Glide.with(this))
         }
     }
 
@@ -57,14 +61,37 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        model.enableShuffleButton.value?.let {
+            if (it) {
+                menu?.findItem(R.id.action_shuffle)?.let { shuffleButton ->
+                    shuffleButton.isEnabled = it
+                    shuffleButton.icon?.alpha = 255
+                }
+            }
+        }
+        return super.onPrepareOptionsMenu(menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             R.id.action_shuffle -> {
-                Toast.makeText(this,"Shuffle",Toast.LENGTH_SHORT).show()
+                with(item) {
+                    isEnabled = false
+                    icon.alpha = 130
+                    model.enableShuffleButton.value = false
+                }
+                Toast.makeText(this, "Shuffle", Toast.LENGTH_SHORT).show()
+                model.shuffleArtistList()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
 
+    }
+
+    override fun onPause() {
+        model.destroy()
+        super.onPause()
     }
 }
